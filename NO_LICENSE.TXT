@@ -1,0 +1,14 @@
+THIS IS NOT OPEN SOURCE SOFTWARE
+
+Copyright (c) 2006, Ian Chapman (Chapmip Consultancy)
+
+All rights reserved, except for those rights implicitly granted to GitHub Inc
+by publishing on GitHub and those rights granted by commercial agreement with
+the author.
+
+The purpose of publishing this code is to demonstrate a modular approach to a
+design of embedded 'C' drivers and application code for an Internet-connected
+nodal device.  Not all components of the final build are included here.  The
+missing elements are third-party commercial products that have been licensed
+for use in the end-product.  Some details of the client implementation have
+also been redacted (see placeholders marked with "%%" in code files).
