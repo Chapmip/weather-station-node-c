@@ -19,8 +19,8 @@ See [References](/README.md#references) section for further information.
 * [Overall purpose of node controller](/README.md#overall-purpose-of-node-controller)
 * [Hierarchy of code modules](/README.md#hierarchy-of-code-modules)
 * [Descriptions of code modules](/README.md#descriptions-of-code-modules)
- * [My code modules (included)](/README.md#my-code-modules-included)
- * [Third-party files (not included)](/README.md#third-party-files-not-included)
+  * [My code modules (included)](/README.md#my-code-modules-included)
+  * [Third-party files (not included)](/README.md#third-party-files-not-included)
 * [References](/README.md#references)
 
 # Overall purpose of node controller
@@ -41,7 +41,7 @@ The code modules in this repository fall into the following hierarchy:
 
 The following code files have been written by the author and are therefore included here.
 
-### [`wx_main.c`](/code/wx_main.c) module (and [wx_main.h`](/code/wx_main.h) header)
+### [`wx_main.c`](/code/wx_main.c) module (and [`wx_main.h`](/code/wx_main.h) header)
 
 The `wx_main.c` module (and .h header) ... xxxxxx
 
