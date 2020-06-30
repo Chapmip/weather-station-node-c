@@ -63,17 +63,47 @@ The `download` module is a wrapper around the remote firmware updating services 
 
 ### [`tasks.c`](/code/tasks.c) module (and [`tasks.h`](/code/tasks.h) header)
 
-The `tasks` module provides the top-level loop that calls repeatedly the state machines for polling of the weather station (`davis` module as below) and posting of data to the central server (`post_client` module as below).  The header file exposes the associated constant and function declarations needed by other modules to set up the loop and call an iteration of it.
-
-### [`davis.c`](/code/davis.c) module (and [`davis.h`](/code/davis.h) header)
-
-The `davis` module provides the state machine for polling and collection of data from the weather station.  The header file exposes the associated constant, variable and function declarations needed by other modules to initialise the state machine, call an iteration and otherwise interact with it.
+The `tasks` module contains the top-level loop that calls repeatedly the state machines for polling of the weather station (`davis` module as below) and posting of data to the central server (`post_client` module as below).  The header file exposes the associated constant and function declarations needed by other modules to set up the loop and call an iteration of it.
 
 ### [`post_client.c`](/code/post_client.c) module (and [`post_client.h`](/code/post_client.h) header)
 
 The `post_client` module provides the state machine for posting of data to the central server.  The header file exposes the associated constant and function declarations needed by other modules to initialise the state machine, call an iteration and otherwise interact with it.
 
-*More to be added soon...*
+### [`davis.c`](/code/davis.c) module (and [`davis.h`](/code/davis.h) header)
+
+The `davis` module contains the state machine for polling and collection of data from the weather station.  The header file exposes the associated constant, variable and function declarations needed by other modules to initialise the state machine, call an iteration and otherwise interact with it.
+
+### [`crc.c`](/code/crc.c) module (and [`crc.h`](/code/crc.h) header)
+
+The `crc` module provides a function to calculate the 16-bit CRC for a block of data according to the [CCITT standard](http://srecord.sourceforge.net/crc16-ccitt.html), as adopted by Davis Instruments Corp. for the Vantage Pro 2™ weather station.  The header file exposes the function declaration needed by the `davis` module.
+
+### [`bb_vars.c`](/code/bb_vars.c) module (and [`bb_vars.h`](/code/bb_vars.h) header)
+
+The `bb_vars` module contains a utility function to initialise the battery backed RAM in the Rabbit module for first use, or after a change to the firmware version.  The function checks for a fingerprint value in battery backed RAM and takes no further action if this is present and the firmware version number is unchanged.  The header file exposes the declarations for the utility function and all of the variables that are held in battery backed RAM.
+
+### [`report.c`](/code/report.c) module (and [`report.h`](/code/report.h) header)
+
+The `report` module provides a set of utility functions to send formatted reporting output to a directly or remotely connected debug console.  The module supports both a "terse" and "verbose" output mode, as selected by a configuration DIP switch and a value passed to the reporting function to specify whether the report is informational or a problem indication ("terse" mode suppresses some information-only output).  Each line of report output is prefixed by a shortform indication of its functional source (e.g. "NET", "SER", "UP").  The header file exposes the associated constant and function declarations needed by other modules.
+
+### [`eeprom.c`](/code/eeprom.c) module (and [`eeprom.h`](/code/eeprom.h) header)
+
+The `eeprom` module contains a set of utility functions to read, write and compare system configuration parameters stored in EEPROM.  These configuration parameters are segregated into functional blocks with integrity safeguards to ensure that an error is returned if the block has not been initialised or has become corrupted.  The header file exposes the associated constant, variable and function declarations needed by other modules.
+
+### [`i2c-delta.c`](/code/i2c-delta.c) module (and [`i2c-delta.h`](/code/i2c-delta.h) header)
+
+The `i2c-delta` module provides an **incremental** set of definitions and declarations that must be added to the [standard I2C bus library](https://ftp1.digi.com/support/documentation/0220061_b.pdf) to create amalgamated `i2c.c` and `i2c.h` files for the project build.  The standard I2C bus library is the one included with Dynamic C as provided by Rabbit Semiconductor Inc. and included with the licence for the [Softools Rabbit 'C' compiler](https://www.softools.com/scrabbit.htm).  This `I2C.LIB` must first be converted using the Softools conversion tool to create the `i2c.c` and `i2c.h` files, to which the contents of these `i2c-delta.c` and `i2c-delta.h` modules must then be added.
+
+### [`rtc_utils.c`](/code/rtc_utils.c) module (and [`rtc_utils.h`](/code/rtc_utils.h) header)
+
+The `rtc_utils` module contains a set of utility functions to support the real-time clock in the Rabbit module.  The header file exposes the associated variable and function declarations needed by other modules.
+
+### [`wx_board.c`](/code/wx_board.c) module (and [`wx_board.h`](/code/wx_board.h) header)
+
+The `wx_board` module provides a set of functions to support the external input/output hardware connected to the Rabbit module, including status LED outputs, DIP switch inputs and serial interface status lines.  The header file exposes the associated constant, variable and function declarations needed by other modules.
+
+### [`timeout.h`](/code/timeout.h) module
+
+The `timeout.h` module (header file only) contains a set of `#define` macros to enable timeouts of various lengths and granularity (milliseconds or seconds) to be set and checked by other modules.
 
 ## Third-party files (not included)
 
@@ -149,10 +179,10 @@ The `WEB_DL` module exposes the following variables and functions in its header 
 ## Weather station
 
 * [Davis Instruments Corp.](https://www.davisinstruments.com)
-* [Vantage Pro™ and Vantage Pro2™ weather station](https://www.davisinstruments.com/solution/vantage-pro2/)
-* [Vantage Pro™, Vantage Pro2™ and Vantage Vue™ Serial Communication Reference Manual](https://www.davisinstruments.com/support/weather/download/VantageSerialProtocolDocs_v261.pdf)
+* [Vantage Pro™ and Vantage Pro 2™ weather station](https://www.davisinstruments.com/solution/vantage-pro2/)
+* [Vantage Pro™, Vantage Pro 2™ and Vantage Vue™ Serial Communication Reference Manual](https://www.davisinstruments.com/support/weather/download/VantageSerialProtocolDocs_v261.pdf)
 
 ## Other references
 
-* [Information on 16-bit CCITT standard CRC for blocks of data sent by Vantage Pro1™ weather station](http://srecord.sourceforge.net/crc16-ccitt.html)
+* [Information on 16-bit CCITT standard CRC for blocks of data sent by Vantage Pro 2™ weather station](http://srecord.sourceforge.net/crc16-ccitt.html)
 * [Data sheet for 24LC64 Microchip® 64K I2C Serial EEPROM](http://ww1.microchip.com/downloads/en/devicedoc/21189f.pdf)
