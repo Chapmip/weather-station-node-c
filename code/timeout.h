@@ -1,11 +1,5 @@
 // Macros to enable timeouts of various lengths and granularity to be set and checked
 
-// Copyright (c) 2006, Ian Chapman (Chapmip Consultancy)
-
-// All rights reserved, except for those rights implicitly granted to
-// GitHub Inc by publishing on GitHub and those rights granted by
-// commercial agreement with the author.
-
 
 #ifndef	TIMEOUT_H
 #define	TIMEOUT_H
