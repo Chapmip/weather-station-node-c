@@ -25,7 +25,7 @@ See [References](/README.md#references) section for further information.
 
 # Overall purpose of node controller
 
-Each node controller is paired with a weather station (from [Davis Instruments Corp.](https://www.davisinstruments.com/)) at a series of locations.  The node controller connects to the weather station via a serial interface and to the local area network via an Ethernet cable.  The weather station is configured to collect data from the weather station at periodic intervals and to relay these data over the Internet to a central server using a subset of the HTTP protocol (v1.1).
+Each node controller is paired with a weather station (from [Davis Instruments Corp.](https://www.davisinstruments.com/)) at a series of locations.  The node controller connects to the weather station via a serial interface and to the local area network via an Ethernet cable.  The weather station is configured to collect data from the weather station at periodic intervals and relay these data over the Internet to a central server using a subset of the HTTP protocol (v1.1).
 
 The node controller can be monitored and configured either over a direct serial connection or remotely (via a UDP connection to a Windows PC elsewhere on the local network or beyond).  The node controller also includes the capability for remote firmware updating on demand from a binary file held on the central server.  Configuration parameters for the node controller are held in non-volatile memory (EEPROM for static data and battery-backed RAM for dynamic data) so that the node controller can recover readily from a power interruption.
 
@@ -87,11 +87,11 @@ The `report` module provides a set of utility functions to send formatted report
 
 ### [`eeprom.c`](/code/eeprom.c) module (and [`eeprom.h`](/code/eeprom.h) header)
 
-The `eeprom` module contains a set of utility functions to read, write and compare system configuration parameters stored in EEPROM.  These configuration parameters are segregated into functional blocks with integrity safeguards to ensure that an error is returned if the block has not been initialised or has become corrupted.  The header file exposes the associated constant, variable and function declarations needed by other modules.
+The `eeprom` module contains a set of utility functions to read, write and compare system configuration parameters stored in EEPROM.  These configuration parameters are segregated into functional blocks with integrity safeguards to ensure that an error is returned if the block has not been initialised or has become corrupted.  The header file exposes the associated constant, variable and function declarations needed by other modules.  The `eeprom` module depends on the `i2c` module (see below) to access a [24LC64 I2C Serial EEPROM](http://ww1.microchip.com/downloads/en/devicedoc/21189f.pdf).
 
 ### [`i2c-delta.c`](/code/i2c-delta.c) module (and [`i2c-delta.h`](/code/i2c-delta.h) header)
 
-The `i2c-delta` module provides an **incremental** set of definitions and declarations that must be added to the [standard I2C bus library](https://ftp1.digi.com/support/documentation/0220061_b.pdf) to create amalgamated `i2c.c` and `i2c.h` files for the project build.  The standard I2C bus library is the one included with Dynamic C as provided by Rabbit Semiconductor Inc. and included with the licence for the [Softools Rabbit 'C' compiler](https://www.softools.com/scrabbit.htm).  This `I2C.LIB` must first be converted using the Softools conversion tool to create the `i2c.c` and `i2c.h` files, to which the contents of these `i2c-delta.c` and `i2c-delta.h` modules must then be added.
+The `i2c-delta` module provides an **incremental** set of definitions and declarations that must be added to the [standard I2C bus library](https://ftp1.digi.com/support/documentation/0220061_b.pdf) to create amalgamated `i2c.c` and `i2c.h` files for the project build.  The standard I2C bus library is the one included with Dynamic C as provided by Rabbit Semiconductor Inc. and included with the licence for the [Softools Rabbit 'C' compiler](https://www.softools.com/scrabbit.htm).  This `I2C.LIB` must first be unpacked using the Softools conversion tool to create the `i2c.c` and `i2c.h` files, to which the contents of these `i2c-delta.c` and `i2c-delta.h` modules must then be added.
 
 ### [`rtc_utils.c`](/code/rtc_utils.c) module (and [`rtc_utils.h`](/code/rtc_utils.h) header)
 
