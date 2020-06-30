@@ -1,4 +1,4 @@
-﻿# Important preamble
+# Important preamble
 
 ***THIS IS NOT OPEN SOURCE SOFTWARE*** ⁠— See [NO_LICENSE.TXT](/NO_LICENSE.TXT) for further information.
 
@@ -33,19 +33,64 @@ The individual code modules are described below, together with guidance on their
 
 ## [`wx_main`](/code/wx_main.c) module
 
-The `wx_main.c` module (and .h header) ... xxx
+The `wx_main.c` module (and .h header) ... xxxxxx
 
 
 ## Third-party files (not included)
 
-The following third-party files are required to complete the build but are not included here:
+The following third-party files are required to complete the build but are not included here.
 
-* `Bootp_01.c` — xxx
-* `Cstart.asm` — xxx
-* `SCRabbit.lib` — xxx
-* `STCPIP-DHCP.lib` — xxx
-* `udpdebug.c` and `udpdebug.h` — xxx
-* `WEB_DL.c` and `WEB_DL.h` — xxx
+### `Cstart` module (.asm file)
+
+This third-party module is part of the [Softools Rabbit 'C' compiler](https://www.softools.com/scrabbit.htm) library.  It handles the low-level startup of the Rabbit module from power-up or reset, then passes control to the 'C' `main()` function.
+
+The `Cstart` module needs to be linked into the overall project build.
+
+### `SCRabbit` module (.lib file)
+
+This third-party module is part of the [Softools Rabbit 'C' compiler](https://www.softools.com/scrabbit.htm) library.  It provides a set of functions specifically associated with the Rabbit module (as distinct from standard 'C' libraries).
+
+The `SCRabbit` module needs to be linked into the overall project build.
+
+### `Bootp_01` module (.c file)
+
+This third-party module is part of the [Softools Rabbit 'C' compiler](https://www.softools.com/scrabbit.htm) library.  It provides support functions for setting up the Ethernet and LAN interfaces on the local network, including the DHCP protocol for automatic assignment of IP address and associated network parameters.
+
+The `Bootp_01` module does not directly expose variables and functions to application code, but needs to be linked into the overall project build.
+
+### `STCPIP-DHCP` module (.lib file)
+
+This third-party module is part of the [Softools Rabbit 'C' compiler](https://www.softools.com/scrabbit.htm) library.  It provides support functions for setting up the Ethernet and LAN interfaces on the local network, including the DHCP protocol for automatic assignment of IP address and associated network parameters.
+
+The `STCPIP-DHCP` module does not directly expose variables and functions to application code, but needs to be linked into the overall project build.
+
+### `udpdebug` module (.c and .h files)
+
+This third-party module is a free library offered by [SHDesigns](https://www.shdesigns.org) that can be downloaded from [here](https://www.shdesigns.org/rabbit/udpdebug.shtml).  It enables the debug console output from the weather station node controller to be accessed over a UDP connection from a Windows PC on the local network (or potentially at a remote location using UDP tunneling).  The PC needs to be running the corresponding UDP Debug application that is supplied with the library.
+
+The `udpdebug` module exposes the following variables and functions in its header file (`udpdebug.h`):
+
+    extern char debug_autocr;
+    extern FILE debug_stdio[1];
+    
+    int debug_init(int ena);
+    int debug_kbhit(void);
+    int near debug_getchar(void);
+    void near debug_putchar(char c);
+    int debug_tick(void);
+
+### `WEB_DL` module (.c and .h files)
+
+This third-party module is a commercial library offered by [SHDesigns](https://www.shdesigns.org) that manages the process of remote firmware updates.  The library enables the weather station node controller to poll for a firmware update hosted on the central server.  If an update is available, then the corresponding binary file can be downloaded into a holding memory and then flashed into program memory.  The library includes safeguards to protect the node controller from a failed or partial download, or various other error conditions during  the update process.  Further information is available [here](https://www.shdesigns.org/rabbit/resident.shtml).
+
+The `WEB_DL` module exposes the following variables and functions in its header file (`WEB_DL.h`):
+
+    extern unsigned _sector_size;
+    
+    void set_flash_start(long addr);
+    int write_sector(long block,char * buff, int bsize);
+    int CheckWebVersion(char * url, char * server_ip, unsigned port, long * version);
+    int GetWebUpdate(void);
 
 # References
 
