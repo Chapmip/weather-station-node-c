@@ -8,7 +8,7 @@ Not all components of the final build are included here.  The missing elements a
 
 # Weather station node controller
 
-These 'C' code modules are drawn from my commercial design in 2006-7 for a node controller to connect a weather station over the Internet to a central server for regular updates of weather data.  With the agreement of my client, I have published my code with implementation-specific details replaced by placeholders (marked with "%%" in code files).
+These 'C' code modules are drawn from my commercial design in 2006-7 for a node controller to connect a weather station over the Internet to a central server for regular relaying of weather data.  With the agreement of my client, I have published my code with implementation-specific details replaced by placeholders (marked with "%%" in code files).
 
 The processing platform for this node controller is a [RabbitCore® RCM3720 module](https://www.digi.com/products/models/20-101-1329).  The development toolchain was the [Softools Rabbit 'C' compiler](https://www.softools.com/scrabbit.htm) and associated libraries.
 
@@ -19,14 +19,15 @@ See [References](/README.md#references) section for further information.
 * [Overall purpose of node controller](/README.md#overall-purpose-of-node-controller)
 * [Hierarchy of code modules](/README.md#hierarchy-of-code-modules)
 * [Descriptions of code modules](/README.md#descriptions-of-code-modules)
-* [Third-party files (not included)](/README.md#third-party-files-not-included)
+ * [My code modules (included)](/README.md#my-code-modules-included)
+ * [Third-party files (not included)](/README.md#third-party-files-not-included)
 * [References](/README.md#references)
 
 # Overall purpose of node controller
 
-Each node controller is paired with a weather station (from [Davis Instruments Corp.](https://www.davisinstruments.com/)) at a series of locations.  The node controller connects to the weather station via a serial interface and to the local area network via an Ethernet cable.  The weather station is configured to collect data from the weather station at periodic intervals and to relay this data over the Internet to a central server using a subset of the HTTP protocol (version 1.1).
+Each node controller is paired with a weather station (from [Davis Instruments Corp.](https://www.davisinstruments.com/)) at a series of locations.  The node controller connects to the weather station via a serial interface and to the local area network via an Ethernet cable.  The weather station is configured to collect data from the weather station at periodic intervals and to relay these data over the Internet to a central server using a subset of the HTTP protocol (v1.1).
 
-The node controller can be monitored and configured either over a direct serial connection or remotely monitoring (via a UDP connection to a Windows PC on the local network or beyond).  The node controller also includes the capability for remote firmware updating on demand from a binary file held on the central server.  Configuration parameters for the node controller are held in non-volatile memory (EEPROM for static data and battery-backed RAM for dynamic data) so that the node controller can recover readily from a power interruption.
+The node controller can be monitored and configured either over a direct serial connection or remotely (via a UDP connection to a Windows PC elsewhere on the local network or beyond).  The node controller also includes the capability for remote firmware updating on demand from a binary file held on the central server.  Configuration parameters for the node controller are held in non-volatile memory (EEPROM for static data and battery-backed RAM for dynamic data) so that the node controller can recover readily from a power interruption.
 
 # Hierarchy of code modules
 
@@ -36,9 +37,11 @@ The code modules in this repository fall into the following hierarchy:
 
 # Descriptions of code modules
 
-The individual code modules are described below, together with guidance on their use.
+## My code modules (included)
 
-## [`wx_main.c`](/code/wx_main.c) module (and [`header`](/code/wx_main.h) file)
+The following code files have been written by the author and are therefore included here.
+
+### [`wx_main.c`](/code/wx_main.c) module (and [wx_main.h`](/code/wx_main.h) header)
 
 The `wx_main.c` module (and .h header) ... xxxxxx
 
