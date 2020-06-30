@@ -43,8 +43,37 @@ The following code files have been written by the author and are therefore inclu
 
 ### [`wx_main.c`](/code/wx_main.c) module (and [`wx_main.h`](/code/wx_main.h) header)
 
-The `wx_main.c` module (and .h header) ... xxxxxx
+The `wx_main` module contains the `main()` entry point for the 'C' application.  It is responsible for initialising the system and starting up the supporting processes (see [hierarchy tree](/README.md#hierarchy-of-code-modules)).  The header file passes out a few system-wide declarations needed by other modules.
 
+### [`lan.c`](/code/lan.c) module (and [`lan.h`](/code/lan.h) header)
+
+The `lan` module is responsible for starting up, shutting down and managing the LAN interface to the Internet over the Ethernet connection.  The header file exposes the associated constant, variable and function declarations needed by other modules.
+
+### [`menu.c`](/code/menu.c) module (and [`menu.h`](/code/menu.h) header)
+
+The `menu` module provides the configuration menu for management of the node controller by a directly or remotely connected technician.  The header file exposes the associated constant and function declarations needed by other modules.
+
+### [`stack_check.c`](/code/stack_check.c) module (and [`stack_check.h`](/code/stack_check.h) header)
+
+The `stack_check` module contains a pair of utility functions for measurement of the maximum depth of stack used by the node controller during its operation (too much stack usage could lead to random system crashes).  The header file exposes the associated constant and function declarations needed by other modules to set up and make the stack depth measurement.
+
+### [`download.c`](/code/download.c) module (and [`download.h`](/code/download.h) header)
+
+The `download` module is a wrapper around the remote firmware updating services provided by the third-party `WEB_DL` module (see later below).  The header file exposes the associated constant and function declarations needed by other modules.
+
+### [`tasks.c`](/code/tasks.c) module (and [`tasks.h`](/code/tasks.h) header)
+
+The `tasks` module provides the top-level loop that calls repeatedly the state machines for polling of the weather station (`davis` module as below) and posting of data to the central server (`post_client` module as below).  The header file exposes the associated constant and function declarations needed by other modules to set up the loop and call an iteration of it.
+
+### [`davis.c`](/code/davis.c) module (and [`davis.h`](/code/davis.h) header)
+
+The `davis` module provides the state machine for polling and collection of data from the weather station.  The header file exposes the associated constant, variable and function declarations needed by other modules to initialise the state machine, call an iteration and otherwise interact with it.
+
+### [`post_client.c`](/code/post_client.c) module (and [`post_client.h`](/code/post_client.h) header)
+
+The `post_client` module provides the state machine for posting of data to the central server.  The header file exposes the associated constant and function declarations needed by other modules to initialise the state machine, call an iteration and otherwise interact with it.
+
+*More to be added soon...*
 
 ## Third-party files (not included)
 
