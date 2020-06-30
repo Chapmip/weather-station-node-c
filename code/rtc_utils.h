@@ -7,8 +7,8 @@
 // commercial agreement with the author.
 
 
-#ifndef	RTC_UTILS_H
-#define	RTC_UTILS_H
+#ifndef RTC_UTILS_H
+#define RTC_UTILS_H
 
 
 // External variables

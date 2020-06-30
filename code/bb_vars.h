@@ -7,13 +7,13 @@
 // commercial agreement with the author.
 
 
-#ifndef	BB_VARS_H
-#define	BB_VARS_H
+#ifndef BB_VARS_H
+#define BB_VARS_H
 
 
 // Constants
 
-#define BB_BAD_POST_ERR_STR		"Invalid POST error string"
+#define BB_BAD_POST_ERR_STR     "Invalid POST error string"
 
 
 // External variables

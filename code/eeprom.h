@@ -7,89 +7,89 @@
 // commercial agreement with the author.
 
 
-#ifndef	EEPROM_H
-#define	EEPROM_H
+#ifndef EEPROM_H
+#define EEPROM_H
 
-#include "i2c.h"							// Include I2C status values
+#include "i2c.h"                            // Include I2C status values
 
 
 // Constants
 
-#define EE_POST_STR_MAX_LEN		64			// Maximum string length
+#define EE_POST_STR_MAX_LEN     64          // Maximum string length
 
 
 // Structure definitions
 
 typedef struct
-	{
-	unsigned int marker;					// Must be first element
+    {
+    unsigned int marker;                    // Must be first element
     int use_static;
-	longword ip_addr;
-	longword netmask;
-	longword dns_server_ip;
-	longword router_ip;
-	unsigned int crc;						// Must be last element
-	} EeLanInfo_t;
+    longword ip_addr;
+    longword netmask;
+    longword dns_server_ip;
+    longword router_ip;
+    unsigned int crc;                       // Must be last element
+    } EeLanInfo_t;
 
 typedef struct
-	{
-	unsigned int marker;					// Must be first element
+    {
+    unsigned int marker;                    // Must be first element
     int use_proxy;
-	word host_port;
-	word proxy_port;
-	unsigned int crc;						// Must be last element
-	} EePostInfo_t;
+    word host_port;
+    word proxy_port;
+    unsigned int crc;                       // Must be last element
+    } EePostInfo_t;
 
 typedef struct
-	{
-	unsigned int marker;					// Must be first element
-	char str[EE_POST_STR_MAX_LEN + 1];
-	unsigned int crc;						// Must be last element
-	} EePostStr_t;
+    {
+    unsigned int marker;                    // Must be first element
+    char str[EE_POST_STR_MAX_LEN + 1];
+    unsigned int crc;                       // Must be last element
+    } EePostStr_t;
 
 typedef struct
-	{
-	unsigned int marker;					// Must be first element
+    {
+    unsigned int marker;                    // Must be first element
     word id_base;
-	word report_mode;
-	word update_secs;
-	word reserved;
-	unsigned int crc;						// Must be last element
-	} EeUnitInfo_t;
+    word report_mode;
+    word update_secs;
+    word reserved;
+    unsigned int crc;                       // Must be last element
+    } EeUnitInfo_t;
 
 
 // External variables
 
-extern EeLanInfo_t	 ee_lan_info;
+extern EeLanInfo_t   ee_lan_info;
 extern unsigned char ee_lan_valid;
 
-extern EePostInfo_t	 ee_post_info;
+extern EePostInfo_t  ee_post_info;
 extern unsigned char ee_post_valid;
 
-extern EePostStr_t	 ee_post_host;
-extern EePostStr_t	 ee_post_path;
-extern EePostStr_t	 ee_post_proxy;
+extern EePostStr_t   ee_post_host;
+extern EePostStr_t   ee_post_path;
+extern EePostStr_t   ee_post_proxy;
 
-extern EeUnitInfo_t	 ee_unit_info;
+extern EeUnitInfo_t  ee_unit_info;
 
 
 // Status of EEPROM block operations (other than I2C values)
 
-#define EE_BAD_CRC				(I2C_MAX_ERR + 2)
-#define EE_BAD_MARKER			(I2C_MAX_ERR + 1)
-#define EE_SUCCESS				0
-#define EE_BAD_BLK_SIZE			(I2C_MIN_ERR - 1)
+#define EE_BAD_CRC              (I2C_MAX_ERR + 2)
+#define EE_BAD_MARKER           (I2C_MAX_ERR + 1)
+#define EE_SUCCESS              0
+#define EE_BAD_BLK_SIZE         (I2C_MIN_ERR - 1)
 
 
 // 8-bit EEPROM location identifiers
 // Multiplied by EE_PAGE_SIZE to give physical subaddress
 
-#define EE_LOC_LAN_INFO			0
-#define EE_LOC_POST_INFO		1
-#define EE_LOC_POST_HOST		2			// Allow 4 sectors
-#define EE_LOC_POST_PATH		6			// Allow 4 sectors
-#define EE_LOC_POST_PROXY		10			// Allow 4 sectors
-#define EE_LOC_UNIT_INFO		14
+#define EE_LOC_LAN_INFO         0
+#define EE_LOC_POST_INFO        1
+#define EE_LOC_POST_HOST        2           // Allow 4 sectors
+#define EE_LOC_POST_PATH        6           // Allow 4 sectors
+#define EE_LOC_POST_PROXY       10          // Allow 4 sectors
+#define EE_LOC_UNIT_INFO        14
 
 
 // Function prototypes

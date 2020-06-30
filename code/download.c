@@ -20,14 +20,14 @@
 
 // Short-cut names for types of report output (see "report.h")
 
-#define PROBLEM		(REPORT_DOWNLOAD | REPORT_PROBLEM)
-#define DETAIL		(REPORT_DOWNLOAD | REPORT_DETAIL)
-#define INFO		(REPORT_DOWNLOAD | REPORT_INFO)
+#define PROBLEM     (REPORT_DOWNLOAD | REPORT_PROBLEM)
+#define DETAIL      (REPORT_DOWNLOAD | REPORT_DETAIL)
+#define INFO        (REPORT_DOWNLOAD | REPORT_INFO)
 
 
 // Constant definitions
 
-#define DL_HTTP_HDR			"http://"
+#define DL_HTTP_HDR         "http://"
 #define DL_MAX_URL_LEN      ((sizeof(DL_HTTP_HDR) - 1) + (EE_POST_STR_MAX_LEN * 2))
 
 
@@ -46,33 +46,33 @@
 // Returns 0 if no error
 
 int flash_init()
-	{
-	int err;
+    {
+    int err;
 
-	sfspi_init();
-	err = sf_init();
-	if (err)
-		{
+    sfspi_init();
+    err = sf_init();
+    if (err)
+        {
 #ifdef WEB_DEBUG
-		report(PROBLEM, "Serial Flash init failed");
-		net_tick();
+        report(PROBLEM, "Serial Flash init failed");
+        net_tick();
 #endif
-		return err;
-		}
+        return err;
+        }
 
-	sf_setReverse(1);			// Required to prevent byte reversal
+    sf_setReverse(1);           // Required to prevent byte reversal
 
 #ifdef WEB_DEBUG
-	report(DETAIL, "Serial Flash Initialized");
-	report(DETAIL, "# of blocks: %d", sf_blocks);
-	report(DETAIL, "size of blocks: %d", sf_blocksize);
-	net_tick();
+    report(DETAIL, "Serial Flash Initialized");
+    report(DETAIL, "# of blocks: %d", sf_blocks);
+    report(DETAIL, "size of blocks: %d", sf_blocksize);
+    net_tick();
 #endif
 
-	_sector_size = sf_blocksize;
+    _sector_size = sf_blocksize;
 
-	return 0;
-	}
+    return 0;
+    }
 
 
 // Writes data to RCM37x0 flash storage
@@ -82,23 +82,23 @@ int flash_init()
 // Returns 0 if no error
 
 int write_sector(long block, char * buff, int bsize)
-	{
-	int bnum;
+    {
+    int bnum;
 
-	bnum = (int) (block / (long) sf_blocksize);
+    bnum = (int) (block / (long) sf_blocksize);
 
 #ifdef WEB_DEBUG
-	report(DETAIL, "Write to serial flash, block=%d, size=%d", bnum, bsize);
-	net_tick();
+    report(DETAIL, "Write to serial flash, block=%d, size=%d", bnum, bsize);
+    net_tick();
 #endif
 
     sf_writeRAM((char *) buff, 0, bsize);
 
     return sf_RAMToPage(bnum);
-	}
+    }
 
-#endif		// EXTERNAL_STORAGE
-#endif		// COPY2FLASH
+#endif      // EXTERNAL_STORAGE
+#endif      // COPY2FLASH
 
 
 // *** EXTERNAL FUNCTIONS ***
@@ -114,69 +114,69 @@ int write_sector(long block, char * buff, int bsize)
 // Returns < 0 if error occurs (see GetWebUpdate() documentation)
 
 int check_download(char *web_host, char *path, int send_full_url)
-	{
-	char *conn_host;
-	word conn_port;
-	long version;
-	int  retval;
-	char url[DL_MAX_URL_LEN + 1];
+    {
+    char *conn_host;
+    word conn_port;
+    long version;
+    int  retval;
+    char url[DL_MAX_URL_LEN + 1];
 
-	if (strlen(web_host) > EE_POST_STR_MAX_LEN)
-		return -20;
+    if (strlen(web_host) > EE_POST_STR_MAX_LEN)
+        return -20;
 
-	if (strlen(path) > EE_POST_STR_MAX_LEN)
-		return -21;
+    if (strlen(path) > EE_POST_STR_MAX_LEN)
+        return -21;
 
-	if (ee_post_info.use_proxy || send_full_url)
-		{
-		strcpy(url, DL_HTTP_HDR);
-    	strcat(url, web_host);
-		strcat(url, path);
-    	}
-	else
-		{
-		strcpy(url, path);
-		}
+    if (ee_post_info.use_proxy || send_full_url)
+        {
+        strcpy(url, DL_HTTP_HDR);
+        strcat(url, web_host);
+        strcat(url, path);
+        }
+    else
+        {
+        strcpy(url, path);
+        }
 
-	if (!ee_post_info.use_proxy)
-		{
-		conn_host = web_host;
-		conn_port = 80;
-		}
-	else
-		{
-		conn_host = ee_post_proxy.str;
-		conn_port = ee_post_info.proxy_port;
-		}
+    if (!ee_post_info.use_proxy)
+        {
+        conn_host = web_host;
+        conn_port = 80;
+        }
+    else
+        {
+        conn_host = ee_post_proxy.str;
+        conn_port = ee_post_info.proxy_port;
+        }
 
-	report(INFO,   "Checking for new firmware...");
-	report(DETAIL, "Attempting connection to %s port %u", conn_host, conn_port);
-	report(DETAIL, "Attempting to get %s", url);
-	net_tick();
+    report(INFO,   "Checking for new firmware...");
+    report(DETAIL, "Attempting connection to %s port %u", conn_host, conn_port);
+    report(DETAIL, "Attempting to get %s", url);
+    net_tick();
 
-	wx_set_leds(LED_DOWNLOAD, LED_AMBER);
+    wx_set_leds(LED_DOWNLOAD, LED_AMBER);
 
-	retval = CheckWebVersion(url, conn_host, conn_port, &version);
+    retval = CheckWebVersion(url, conn_host, conn_port, &version);
 
-	if (retval < 0)
-		{
-		wx_set_leds(LED_DOWNLOAD, LED_RED);
-		report(PROBLEM, "CheckWebVersion() returned %d", retval);
-		return retval;
-		}
+    if (retval < 0)
+        {
+        wx_set_leds(LED_DOWNLOAD, LED_RED);
+        report(PROBLEM, "CheckWebVersion() returned %d", retval);
+        return retval;
+        }
 
-	wx_set_leds(LED_DOWNLOAD, LED_GREEN);
-	report(INFO, "CheckWebVersion() returned version %ld", version);
+    wx_set_leds(LED_DOWNLOAD, LED_GREEN);
+    report(INFO, "CheckWebVersion() returned version %ld", version);
 
-	if (version <= (VER_MAJOR * 100) + VER_MINOR)
-		{
-		report(INFO, "Current firmware is up-to-date");
+    if (version <= (VER_MAJOR * 100) + VER_MINOR)
+        {
+        report(INFO, "Current firmware is up-to-date");
         return 0;
-		}
+        }
 
-	report(INFO, "Updated firmware is available");
-	return 1;
-	}
+    report(INFO, "Updated firmware is available");
+    return 1;
+    }
 
 
 // Attempts to download, burn into flash and run a new version of firmware
@@ -185,25 +185,25 @@ int check_download(char *web_host, char *path, int send_full_url)
 // Returns < 0 if error occurs (see GetWebUpdate() documentation)
 
 int get_download(void)
-	{
-	int retval;
+    {
+    int retval;
 
 #ifdef EXTERNAL_STORAGE
-	set_flash_start(0L);				// Serial flash chip
+    set_flash_start(0L);                // Serial flash chip
 #else
-	set_flash_start(0x40000L);			// 2nd flash chip in Main Flash
+    set_flash_start(0x40000L);          // 2nd flash chip in Main Flash
 #endif
 
-	report(INFO, "Attempting to download new firmware...");
-	net_tick();
+    report(INFO, "Attempting to download new firmware...");
+    net_tick();
 
-	wx_set_leds(LED_DOWNLOAD, LED_AMBER);
+    wx_set_leds(LED_DOWNLOAD, LED_AMBER);
 
-	retval = GetWebUpdate();
+    retval = GetWebUpdate();
 
-	wx_set_leds(LED_DOWNLOAD, LED_RED);
-	report(PROBLEM, "GetWebUpdate() returned %d", retval);
-	report(PROBLEM, "Firmware download not completed");
+    wx_set_leds(LED_DOWNLOAD, LED_RED);
+    report(PROBLEM, "GetWebUpdate() returned %d", retval);
+    report(PROBLEM, "Firmware download not completed");
 
-	return retval;
-	}
+    return retval;
+    }

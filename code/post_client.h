@@ -7,27 +7,27 @@
 // commercial agreement with the author.
 
 
-#ifndef	POST_CLIENT_H
-#define	POST_CLIENT_H
+#ifndef POST_CLIENT_H
+#define POST_CLIENT_H
 
 
 // Status of the POST process (values returned by post_get_status and post_tick)
 
-#define POST_SUCCESS			1
-#define	POST_PENDING			0
-#define POST_NOT_STARTED		(-1)
-#define POST_CANNOT_START		(-2)
-#define	POST_TIMEOUT			(-3)
-#define	POST_ABORTED			(-4)
-#define	POST_DNS_ERR			(-5)
-#define	POST_SOCKET_ERR			(-6)
-#define POST_CONNECTION_LOST	(-7)
-#define POST_SEND_ERR			(-8)
-#define POST_RESP_ERR			(-9)
-#define	POST_SERVER_ERR			(-10)
-#define POST_BAD_ID				(-11)
-#define POST_REJECTED			(-12)
-#define POST_BAD_STATE			(-13)
+#define POST_SUCCESS            1
+#define POST_PENDING            0
+#define POST_NOT_STARTED        (-1)
+#define POST_CANNOT_START       (-2)
+#define POST_TIMEOUT            (-3)
+#define POST_ABORTED            (-4)
+#define POST_DNS_ERR            (-5)
+#define POST_SOCKET_ERR         (-6)
+#define POST_CONNECTION_LOST    (-7)
+#define POST_SEND_ERR           (-8)
+#define POST_RESP_ERR           (-9)
+#define POST_SERVER_ERR         (-10)
+#define POST_BAD_ID             (-11)
+#define POST_REJECTED           (-12)
+#define POST_BAD_STATE          (-13)
 
 
 // Function prototypes

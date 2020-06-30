@@ -7,13 +7,13 @@
 // commercial agreement with the author.
 
 
-#ifndef	DOWNLOAD_H
-#define	DOWNLOAD_H
+#ifndef DOWNLOAD_H
+#define DOWNLOAD_H
 
 
 // Constant definitions
 
-#define DL_DEF_PATH		"/update.html"
+#define DL_DEF_PATH     "/update.html"
 
 
 // Function prototypes
@@ -41,4 +41,4 @@ int get_download(void);
 #endif
 
 
-#endif	// DOWNLOAD_H
+#endif  // DOWNLOAD_H

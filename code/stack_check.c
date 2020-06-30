@@ -13,15 +13,15 @@
 
 // Pointers to first and last bytes in stack
 
-#define STACK_END			((char *) 0xDFFF)
-#define STACK_START			(STACK_END - STACK_SIZE + 1)
+#define STACK_END           ((char *) 0xDFFF)
+#define STACK_START         (STACK_END - STACK_SIZE + 1)
 
 
 // Stack filler values (as per "Cstart.asm")
 
-#define STACK_MARKER_1		0x5555
-#define STACK_MARKER_2		0xAAAA
-#define STACK_FILLER		0x55
+#define STACK_MARKER_1      0x5555
+#define STACK_MARKER_2      0xAAAA
+#define STACK_FILLER        0x55
 
 
 // *** EXTERNAL FUNCTIONS ***
@@ -31,33 +31,33 @@
 // Returns -1 if stack marker is not found
 
 int check_stack(void)
-	{
+    {
     char * stack_ptr;
 
-	if ((* (unsigned int *) (STACK_START + 0) != STACK_MARKER_1)
-	 || (* (unsigned int *) (STACK_START + 2) != STACK_MARKER_2))
-	 	return -1;
+    if ((* (unsigned int *) (STACK_START + 0) != STACK_MARKER_1)
+     || (* (unsigned int *) (STACK_START + 2) != STACK_MARKER_2))
+        return -1;
 
-	for (stack_ptr = STACK_START + 4; stack_ptr <= STACK_END; ++stack_ptr)
-		{
+    for (stack_ptr = STACK_START + 4; stack_ptr <= STACK_END; ++stack_ptr)
+        {
         if (* stack_ptr != STACK_FILLER)
-			break;
-		}
+            break;
+        }
 
-	return (int) (STACK_END + 1 - stack_ptr);
-	}
+    return (int) (STACK_END + 1 - stack_ptr);
+    }
 
 
 // Report maximum depth of stack used so far
 
 void report_stack(void)
-	{
-	int stack_used;
+    {
+    int stack_used;
 
-	stack_used = check_stack();
+    stack_used = check_stack();
 
-	if (stack_used < 0)
-		printf("STACK: ERROR - Unable to find stack marker\r\n");
-	else
-		printf("STACK: Maximum %d bytes used\r\n");
-	}
+    if (stack_used < 0)
+        printf("STACK: ERROR - Unable to find stack marker\r\n");
+    else
+        printf("STACK: Maximum %d bytes used\r\n");
+    }

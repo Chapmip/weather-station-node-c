@@ -7,13 +7,13 @@
 // commercial agreement with the author.
 
 
-#ifndef	STACK_CHECK_H
-#define	STACK_CHECK_H
+#ifndef STACK_CHECK_H
+#define STACK_CHECK_H
 
 
 // Stack size in bytes (must agree with definition in "Cstart.asm")
 
-#define STACK_SIZE		4096
+#define STACK_SIZE      4096
 
 
 // Function prototypes

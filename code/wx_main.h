@@ -7,19 +7,19 @@
 // commercial agreement with the author.
 
 
-#ifndef	WX_MAIN_H
-#define	WX_MAIN_H
+#ifndef WX_MAIN_H
+#define WX_MAIN_H
 
 #include <dcdefs.h>
 
 // Firmware version number
 
-#define VER_MAJOR			1
-#define VER_MINOR			25			// Must not be 08 or 09!
+#define VER_MAJOR           1
+#define VER_MINOR           25          // Must not be 08 or 09!
 
 // Prefix for host name sent to DHCP server
 
-#define HOST_NAME_PREFIX	"weather-"
+#define HOST_NAME_PREFIX    "weather-"
 
 // Function prototypes
 

@@ -7,14 +7,14 @@
 // commercial agreement with the author.
 
 
-#ifndef	MENU_H
-#define	MENU_H
+#ifndef MENU_H
+#define MENU_H
 
 // Specific ASCII characters used in and outside menu routines
 
-#define MENU_BS					0x08
-#define MENU_CR					0x0D
-#define MENU_ESC				0x1B
+#define MENU_BS                 0x08
+#define MENU_CR                 0x0D
+#define MENU_ESC                0x1B
 
 // Function prototypes
 

@@ -8,8 +8,8 @@
 // commercial agreement with the author.
 
 
-#ifndef	CRC_H
-#define	CRC_H
+#ifndef CRC_H
+#define CRC_H
 
 // Function prototypes
 
