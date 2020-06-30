@@ -16,10 +16,17 @@ See [References](/README.md#references) section for further information.
 
 # Quick links
 
+* [Overall purpose of node controller](/README.md#overall-purpose-of-node-controller)
 * [Hierarchy of code modules](/README.md#hierarchy-of-code-modules)
 * [Descriptions of code modules](/README.md#descriptions-of-code-modules)
 * [Third-party files (not included)](/README.md#third-party-files-not-included)
 * [References](/README.md#references)
+
+# Overall purpose of node controller
+
+Each node controller is paired with a weather station (from [Davis Instruments Corp.](https://www.davisinstruments.com/)) at a series of locations.  The node controller connects to the weather station via a serial interface and to the local area network via an Ethernet cable.  The weather station is configured to collect data from the weather station at periodic intervals and to relay this data over the Internet to a central server using a subset of the HTTP protocol (version 1.1).
+
+The node controller can be monitored and configured either over a direct serial connection or remotely monitoring (via a UDP connection to a Windows PC on the local network or beyond).  The node controller also includes the capability for remote firmware updating on demand from a binary file held on the central server.  Configuration parameters for the node controller are held in non-volatile memory (EEPROM for static data and battery-backed RAM for dynamic data) so that the node controller can recover readily from a power interruption.
 
 # Hierarchy of code modules
 
@@ -31,7 +38,7 @@ The code modules in this repository fall into the following hierarchy:
 
 The individual code modules are described below, together with guidance on their use.
 
-## [`wx_main`](/code/wx_main.c) module
+## [`wx_main.c`](/code/wx_main.c) module (and [`header`](/code/wx_main.h) file)
 
 The `wx_main.c` module (and .h header) ... xxxxxx
 
